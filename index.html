@@ -710,18 +710,9 @@
     console.error('Error al reproducir el audio:', err);
   });
 
-  const button = event.target.closest('.play-button');
-  if (button) {
-    button.classList.add('pulse');
-    setTimeout(() => button.classList.remove('pulse'), 1000);
-  }
 }
-                                  
-            // Visual feedback
-            const button = event.target.closest('.play-button');
-            button.classList.add('pulse');
-            setTimeout(() => button.classList.remove('pulse'), duration);
-        }
+                               
+            
 
         function revealProfile() {
             const profile = findProfile(gameState.color, gameState.melody, gameState.rhythm, gameState.emotion);
