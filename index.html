@@ -1,205 +1,910 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tu Sonido Interior</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f3f3f3;
-      padding: 2rem;
-      max-width: 700px;
-      margin: auto;
-    }
-    h1, h2 {
-      color: #1a237e;
-    }
-    .bloque {
-      background: white;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .opciones {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .opcion {
-      padding: 0.5rem 1rem;
-      border: 2px solid #ccc;
-      border-radius: 0.5rem;
-      background-color: #ffffff;
-      cursor: pointer;
-      transition: 0.3s;
-      color: black;
-    }
-    .opcion:hover {
-      background-color: #e3f2fd;
-    }
-    .opcion.seleccionada {
-      border-color: #1a237e;
-      background-color: #c5cae9;
-      font-weight: bold;
-    }
-    .color-btn {
-  color: white;
-}
-.color-btn.Blanco {
-  color: black;
-  border: 2px solid #ccc;
-    }
-    .Negro { background-color: #000; }
-    .Rojo { background-color: #d32f2f; }
-    .Blanco { background-color: #ffffff; color: black; border-color: #ccc; }
-    .Amarillo { background-color: #fbc02d; color: black; }
-    .Azul { background-color: #1a237e; }
-    .Verde { background-color: #2f8033; }
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
-      background-color: #1a237e;
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-    #resultado {
-      display: none;
-      margin-top: 2rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Sonido Interior - Descubre tu Personalidad Musical</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .jenga-block {
+            width: 80px;
+            height: 25px;
+            margin: 2px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .jenga-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .jenga-block.selected {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border-color: #fbbf24;
+        }
+        
+        .color-negro { background-color: #000000; }
+        .color-rojo { background-color: #dc2626; }
+        .color-blanco { background-color: #ffffff; color: #000; }
+        .color-amarillo { background-color: #fbbf24; color: #000; }
+        .color-azul { background-color: #1e40af; }
+        .color-verde { background-color: #16a34a; }
+        
+        .option-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #8b5cf6;
+        }
+        
+        .option-card.selected {
+            border-color: #fbbf24;
+            background: rgba(251,191,36,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .play-button {
+            background: linear-gradient(45deg, #8b5cf6, #06b6d4);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(139,92,246,0.4);
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .reveal-button {
+            background: linear-gradient(45deg, #f59e0b, #ef4444);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.4);
+        }
+        
+        .reveal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245,158,11,0.6);
+        }
+        
+        .reveal-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .jenga-tower {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .jenga-row {
+            display: flex;
+            margin: 1px 0;
+        }
+        
+        .jenga-row:nth-child(even) {
+            transform: rotate(90deg);
+        }
+        
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .progress-step {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active {
+            background: #fbbf24;
+            transform: scale(1.3);
+        }
+        
+        .progress-step.completed {
+            background: #10b981;
+        }
+        
+        @media (max-width: 768px) {
+            .jenga-block {
+                width: 60px;
+                height: 20px;
+            }
+            .option-card {
+                padding: 15px;
+                margin: 8px 0;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
 </head>
-<body>
-  <h1>Tu Sonido Interior</h1>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                <i class="fas fa-music mr-4"></i>Tu Sonido Interior
+            </h1>
+            <p class="text-xl text-white opacity-90 mb-2">
+                Descubre tu personalidad musical a través de la emoción, el ritmo y la vibración
+            </p>
+            <p class="text-lg text-white opacity-75">
+                Juego Musical Terapéutico - Ideal para jornadas escolares, ferias y eventos de bienestar
+            </p>
+        </div>
 
-  <div class="bloque">
-    <h2>1. Elige el color de la ficha</h2>
-    <div class="opciones" id="colores"></div>
-  </div>
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-step" id="step1"></div>
+            <div class="progress-step" id="step2"></div>
+            <div class="progress-step" id="step3"></div>
+            <div class="progress-step" id="step4"></div>
+        </div>
 
-  <div class="bloque">
-    <h2>2. ¿Qué sonido sientes más tuyo?</h2>
-    <div class="opciones" id="sonidos"></div>
-  </div>
+        <!-- Step 1: Jenga Tower -->
+        <div id="jengaSection" class="option-card text-center mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cubes mr-2"></i>Paso 1: Selecciona tu Ficha Jenga
+            </h2>
+            <p class="text-gray-600 mb-6">Elige el color que más te represente en este momento</p>
+            
+            <div class="jenga-tower">
+                <div class="jenga-row">
+                    <div class="jenga-block color-negro" data-color="Negro" title="Negro"></div>
+                    <div class="jenga-block color-rojo" data-color="Rojo" title="Rojo"></div>
+                    <div class="jenga-block color-blanco" data-color="Blanco" title="Blanco"></div>
+                </div>
+                <div class="jenga-row">
+                    <div class="jenga-block color-amarillo" data-color="Amarillo" title="Amarillo"></div>
+                    <div class="jenga-block color-azul" data-color="Azul" title="Azul"></div>
+                    <div class="jenga-block color-verde" data-color="Verde" title="Verde"></div>
+                </div>
+                <div class="jenga-row">
+                    <div class="jenga-block color-negro" data-color="Negro" title="Negro"></div>
+                    <div class="jenga-block color-rojo" data-color="Rojo" title="Rojo"></div>
+                    <div class="jenga-block color-blanco" data-color="Blanco" title="Blanco"></div>
+                </div>
+                <div class="jenga-row">
+                    <div class="jenga-block color-amarillo" data-color="Amarillo" title="Amarillo"></div>
+                    <div class="jenga-block color-azul" data-color="Azul" title="Azul"></div>
+                    <div class="jenga-block color-verde" data-color="Verde" title="Verde"></div>
+                </div>
+            </div>
+            
+            <div id="colorSelected" class="mt-4 text-lg font-semibold text-green-600 hidden">
+                <i class="fas fa-check-circle mr-2"></i>Color seleccionado: <span id="selectedColorName"></span>
+            </div>
+        </div>
 
-  <div class="bloque">
-    <h2>3. ¿Qué ritmo te mueve más?</h2>
-    <div class="opciones" id="ritmos"></div>
-  </div>
+        <!-- Step 2: Melodies -->
+        <div id="melodiesSection" class="hidden">
+            <div class="option-card mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-music mr-2"></i>Paso 2: ¿Cuál melodía sientes más tuya?
+                </h2>
+                <p class="text-gray-600 mb-6">Escucha cada melodía y elige la que más resuene contigo</p>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="option-card melody-option" data-melody="Weightless">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Weightless</h3>
+                                <p class="text-gray-600 text-sm">Melodía relajante y envolvente</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('melody', 'Weightless')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card melody-option" data-melody="Sonidos del bosque">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Sonidos del Bosque</h3>
+                                <p class="text-gray-600 text-sm">Conexión con la naturaleza</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('melody', 'Sonidos del bosque')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card melody-option" data-melody="Synfony">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Synfony</h3>
+                                <p class="text-gray-600 text-sm">Armonía clásica moderna</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('melody', 'Synfony')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div class="bloque">
-    <h2>4. ¿Qué emoción quieres expresar?</h2>
-    <div class="opciones" id="emociones"></div>
-  </div>
+        <!-- Step 3: Rhythms -->
+        <div id="rhythmsSection" class="hidden">
+            <div class="option-card mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-drum mr-2"></i>Paso 3: ¿Cuál ritmo te mueve más?
+                </h2>
+                <p class="text-gray-600 mb-6">Siente cada ritmo y selecciona el que active tu energía</p>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="option-card rhythm-option" data-rhythm="Balada">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Balada</h3>
+                                <p class="text-gray-600 text-sm">Suave y emotivo</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('rhythm', 'Balada')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card rhythm-option" data-rhythm="Despecho">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Despecho</h3>
+                                <p class="text-gray-600 text-sm">Intenso y apasionado</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('rhythm', 'Despecho')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card rhythm-option" data-rhythm="Merengue">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Merengue</h3>
+                                <p class="text-gray-600 text-sm">Alegre y bailable</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('rhythm', 'Merengue')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card rhythm-option" data-rhythm="Reguetón">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Reguetón</h3>
+                                <p class="text-gray-600 text-sm">Urbano y enérgico</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('rhythm', 'Reguetón')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card rhythm-option" data-rhythm="Salsa">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Salsa</h3>
+                                <p class="text-gray-600 text-sm">Tropical y vibrante</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('rhythm', 'Salsa')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <button onclick="generarPerfil()">🎵 Revelar Mi Perfil Musical</button>
+        <!-- Step 4: Emotions -->
+        <div id="emotionsSection" class="hidden">
+            <div class="option-card mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-heart mr-2"></i>Paso 4: ¿Cuál emoción quieres expresar hoy?
+                </h2>
+                <p class="text-gray-600 mb-6">Conecta con tu estado emocional del momento</p>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="option-card emotion-option" data-emotion="Suspenso">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Suspenso</h3>
+                                <p class="text-gray-600 text-sm">Misterio y expectativa</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('emotion', 'Suspenso')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card emotion-option" data-emotion="Tristeza">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Tristeza</h3>
+                                <p class="text-gray-600 text-sm">Profundidad y reflexión</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('emotion', 'Tristeza')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="option-card emotion-option" data-emotion="Alegría">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold text-lg">Alegría</h3>
+                                <p class="text-gray-600 text-sm">Luz y positividad</p>
+                            </div>
+                            <button class="play-button" onclick="playSound('emotion', 'Alegría')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div id="resultado" class="bloque">
-    <h2 id="nombrePerfil"></h2>
-    <p id="descripcion"></p>
-    <p><strong>Instrumento sugerido:</strong> <span id="instrumento"></span></p>
-    <p><strong>Actividad recomendada:</strong> <span id="actividad"></span></p>
-    <p><strong>Paisaje sonoro:</strong> <span id="paisaje"></span></p>
-    <blockquote id="frase"></blockquote>
-  </div>
+        <!-- Reveal Button -->
+        <div id="revealSection" class="text-center mb-8 hidden">
+            <button id="revealButton" class="reveal-button" disabled>
+                <i class="fas fa-magic mr-2"></i>Revelar Mi Perfil Musical
+            </button>
+        </div>
 
-  <script>
-    const SONIDOS = {
-      sonido1: 'https://drive.google.com/file/d/1k9emw9ZUYV6HhdVP7akoroaZIUaAkPIm',
-      sonido2: 'https://drive.google.com/uc?id=1seDct6tNcHaEKqys0E91t0s8azzMbnfj',
-      sonido3: 'https://drive.google.com/uc?id=1LUft90c6hUmS3pefXzaeiM8E_JWQ3v7A',
-      ritmo1: 'https://drive.google.com/uc?id=1FNyn5JnlrZe5zlChQfewrYNuv0RmsSGl',
-      ritmo2: 'https://drive.google.com/uc?id=16YtNf5vI81b9Tq1Z-vAaLU11IW-OMEZi',
-      ritmo3: 'https://drive.google.com/uc?id=1YpFhpVp28A3yam_Tm5efHDs88U7PWEGd',
-      ritmo4: 'https://drive.google.com/uc?id=1VVXw2a9_BIgk8b0oL3QArqJwF9rLIZWp',
-      ritmo5: 'https://drive.google.com/uc?id=1zW_bvHrYbvM_LGWw1eOkb4lCtsvfGOZP',
-      emocion1: 'https://drive.google.com/uc?id=1MEl77pMkrsONxsAbqS4gWh7s3q9Xhswi',
-      emocion2: 'https://drive.google.com/uc?id=1LveJlSVdYHJFEzG-lCjuZ7rT3f4gekQW',
-      emocion3: 'https://drive.google.com/uc?id=1_og2JpB2CZEwzfc8lTklrM4P9V-JN03O'
-    };
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden">
+            <div class="result-card fade-in">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2" id="profileName">
+                        <i class="fas fa-star mr-2 text-yellow-500"></i>Tu Perfil Musical
+                    </h2>
+                    <div class="text-lg text-gray-600 mb-4">
+                        <span class="bg-gray-100 px-3 py-1 rounded-full mr-2" id="selectedColor"></span>
+                        <span class="bg-blue-100 px-3 py-1 rounded-full mr-2" id="selectedMelody"></span>
+                        <span class="bg-green-100 px-3 py-1 rounded-full mr-2" id="selectedRhythm"></span>
+                        <span class="bg-purple-100 px-3 py-1 rounded-full" id="selectedEmotion"></span>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">
+                                <i class="fas fa-user mr-2 text-blue-500"></i>Descripción de tu Perfil
+                            </h3>
+                            <p class="text-gray-700" id="profileDescription"></p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">
+                                <i class="fas fa-guitar mr-2 text-green-500"></i>Instrumento Sugerido
+                            </h3>
+                            <p class="text-gray-700" id="suggestedInstrument"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">
+                                <i class="fas fa-running mr-2 text-purple-500"></i>Actividad Recomendada
+                            </h3>
+                            <p class="text-gray-700" id="recommendedActivity"></p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-800 mb-2">
+                                <i class="fas fa-tree mr-2 text-green-600"></i>Paisaje Sonoro
+                            </h3>
+                            <p class="text-gray-700" id="soundscape"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg text-center">
+                    <h3 class="font-semibold text-gray-800 mb-2">
+                        <i class="fas fa-quote-left mr-2 text-pink-500"></i>Tu Frase Motivacional
+                    </h3>
+                    <p class="text-lg italic text-gray-700" id="motivationalPhrase"></p>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button onclick="generatePDF()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                        <i class="fas fa-file-pdf mr-2"></i>Descargar Mi Perfil en PDF
+                    </button>
+                    <button onclick="shareProfile()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold ml-4 transition-all">
+                        <i class="fas fa-share mr-2"></i>Compartir Mi Perfil
+                    </button>
+                </div>
+            </div>
+        </div>
 
-    const opciones = {
-      colores: ["Negro", "Rojo", "Blanco", "Amarillo", "Azul", "Verde"],
-      sonidos: ["Sonido 1", "Sonido 2", "Sonido 3"],
-      ritmos: ["Ritmo 1", "Ritmo 2", "Ritmo 3", "Ritmo 4", "Ritmo 5"],
-      emociones: ["Emoción 1", "Emoción 2", "Emoción 3"]
-    };
+        <!-- Footer -->
+        <div class="text-center mt-12 text-white opacity-75">
+            <p><i class="fas fa-clock mr-2"></i>Duración: 2-3 minutos por jugador</p>
+            <p><i class="fas fa-dollar-sign mr-2"></i>Costo por experiencia: $500 COP</p>
+            <p class="mt-4 text-sm">© Tu Sonido Interior - Juego Musical Terapéutico</p>
+        </div>
+    </div>
 
-    const seleccion = {
-      color: null,
-      sonido: null,
-      ritmo: null,
-      emocion: null
-    };
-
-    function crearBotones(id, valores, tipo) {
-      const contenedor = document.getElementById(id);
-      valores.forEach((valor, index) => {
-        const btn = document.createElement("button");
-        btn.innerText = valor;
-        btn.classList.add("opcion");
-        if (tipo === "color") btn.classList.add("color-btn", valor);
-        btn.onclick = () => {
-          document.querySelectorAll(`#${id} .opcion`).forEach(b => b.classList.remove("seleccionada"));
-          btn.classList.add("seleccionada");
-          seleccion[tipo] = valor;
-          if (tipo !== "color") {
-            const audio = new Audio(SONIDOS[`${tipo}${index + 1}`]);
-            audio.play();
-          } else {
-            alert(`Has elegido el color ${valor}. Toca el instrumento correspondiente.`);
-          }
+    <script>
+        // Global game state
+        let gameState = {
+            color: null,
+            melody: null,
+            rhythm: null,
+            emotion: null,
+            currentStep: 1
         };
-        contenedor.appendChild(btn);
-      });
-    }
 
-    window.onload = () => {
-      crearBotones("colores", opciones.colores, "color");
-      crearBotones("sonidos", opciones.sonidos, "sonido");
-      crearBotones("ritmos", opciones.ritmos, "ritmo");
-      crearBotones("emociones", opciones.emociones, "emocion");
-    };
+        // Sample of the complete profiles database (in production, this would be the full JSON)
+        const profilesDatabase = [
+            {
+                "Color": "Negro",
+                "Melodía": "Weightless",
+                "Ritmo": "Balada",
+                "Emoción": "Suspenso",
+                "Nombre del perfil": "Negro - Aire Susurro Velo",
+                "Descripción": "Tu energía inicial (Negro) combinada con la melodía 'Weightless', el ritmo 'Balada' y la emoción 'Suspenso' revela un perfil de sensibilidad musical profundo. Expresas una identidad sonora que busca conexión, expresión y liberación a través del movimiento y el sonido auténtico.",
+                "Instrumento sugerido": "Palo de lluvia",
+                "Actividad recomendada": "Realiza una improvisación libre usando el ritmo de 'Balada' mientras canalizas la emoción de 'Suspenso' con sonidos suaves de 'Weightless'.",
+                "Paisaje sonoro": "Un bosque al anochecer con ramas que crujen",
+                "Frase motivacional": "La música que llevas dentro siempre encuentra una salida."
+            },
+            {
+                "Color": "Rojo",
+                "Melodía": "Synfony",
+                "Ritmo": "Salsa",
+                "Emoción": "Alegría",
+                "Nombre del perfil": "Rojo - Esencia Ritual Brillo",
+                "Descripción": "Tu energía inicial (Rojo) combinada con la melodía 'Synfony', el ritmo 'Salsa' y la emoción 'Alegría' revela un perfil de vitalidad musical explosiva. Expresas una identidad sonora llena de pasión, fuerza y celebración de la vida.",
+                "Instrumento sugerido": "Maracas",
+                "Actividad recomendada": "Baila libremente al ritmo de 'Salsa' mientras canalizas la alegría con la potencia de 'Synfony'.",
+                "Paisaje sonoro": "Una fiesta al aire libre con luces de colores",
+                "Frase motivacional": "Tu energía musical ilumina cada espacio que tocas."
+            },
+            {
+                "Color": "Azul",
+                "Melodía": "Sonidos del bosque",
+                "Ritmo": "Merengue",
+                "Emoción": "Tristeza",
+                "Nombre del perfil": "Azul - Raíz Pulso Eco",
+                "Descripción": "Tu energía inicial (Azul) combinada con la melodía 'Sonidos del bosque', el ritmo 'Merengue' y la emoción 'Tristeza' revela un perfil de profundidad emocional. Expresas una identidad sonora que encuentra belleza en la melancolía y sabiduría en el silencio.",
+                "Instrumento sugerido": "Flauta de bambú",
+                "Actividad recomendada": "Medita al ritmo suave del 'Merengue' mientras te conectas con los 'Sonidos del bosque' y procesas la 'Tristeza'.",
+                "Paisaje sonoro": "Un lago en calma reflejando el cielo nublado",
+                "Frase motivacional": "En tu silencio interior encuentras las melodías más profundas."
+            }
+        ];
 
-    let perfiles = [];
-    fetch("Diagnostico_Completo_Tu_Sonido_Interior.json")
-      .then(response => response.json())
-      .then(data => perfiles = data)
-      .catch(error => console.error("Error cargando JSON:", error));
+        // Sound URLs (placeholder - replace with your Google Drive URLs)
+        const soundUrls = {
+            melody: {
+    'Weightless': 'https://drive.google.com/uc?id=1k9emw9ZUVY6HhdvVP7akoroa2UuAkPlm',
+    'Sonidos del bosque': 'https://drive.google.com/uc?id=1seDct6tNcHaEKqys0E91t0s8aztMbnfj',
+    'Synfony': 'https://drive.google.com/uc?id=1LUft90c6hUmS3pefXzaeiM8E_JWQ3v7A'
+  },
+  rhythm: {
+    'Balada': 'https://drive.google.com/uc?id=YOUR_BALADA_ID',
+    'Despecho': 'https://drive.google.com/uc?id=YOUR_DESPECHO_ID',
+    'Merengue': 'https://drive.google.com/uc?id=YOUR_MERENGUE_ID',
+    'Reguetón': 'https://drive.google.com/uc?id=YOUR_REGGAETON_ID',
+    'Salsa': 'https://drive.google.com/uc?id=YOUR_SALSA_ID'
+  },
+  emotion: {
+    'Suspenso': 'https://drive.google.com/uc?id=YOUR_SUSPENSE_ID',
+    'Tristeza': 'https://drive.google.com/uc?id=YOUR_SADNESS_ID',
+    'Alegría': 'https://drive.google.com/uc?id=YOUR_JOY_ID'
+  }
+};
 
-    function generarPerfil() {
-      const { color, sonido, ritmo, emocion } = seleccion;
-      if (!color || !sonido || !ritmo || !emocion) {
-        alert("Por favor, completa todas las selecciones.");
-        return;
-      }
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGame();
+        });
 
-      const perfil = perfiles.find(p => 
-        p.Color === color && 
-        p["Melodía"] === sonido && 
-        p.Ritmo === ritmo && 
-        p.Emoción === emocion);
+        function initializeGame() {
+            updateProgressIndicator();
+            
+            // Add event listeners for Jenga blocks
+            document.querySelectorAll('.jenga-block').forEach(block => {
+                block.addEventListener('click', function() {
+                    selectColor(this.dataset.color);
+                });
+            });
 
-      if (!perfil) {
-        alert("No se encontró el perfil correspondiente. Verifica los datos.");
-        return;
-      }
+            // Add event listeners for melody options
+            document.querySelectorAll('.melody-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectMelody(this.dataset.melody);
+                });
+            });
 
-      document.getElementById("nombrePerfil").innerText = perfil["Nombre del perfil"];
-      document.getElementById("descripcion").innerText = perfil.Descripción;
-      document.getElementById("instrumento").innerText = perfil["Instrumento sugerido"];
-      document.getElementById("actividad").innerText = perfil["Actividad recomendada"];
-      document.getElementById("paisaje").innerText = perfil["Paisaje sonoro"];
-      document.getElementById("frase").innerText = perfil["Frase motivacional"];
+            // Add event listeners for rhythm options
+            document.querySelectorAll('.rhythm-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectRhythm(this.dataset.rhythm);
+                });
+            });
 
-      document.getElementById("resultado").style.display = "block";
-    }
-  </script>
+            // Add event listeners for emotion options
+            document.querySelectorAll('.emotion-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectEmotion(this.dataset.emotion);
+                });
+            });
+
+            // Add event listener for reveal button
+            document.getElementById('revealButton').addEventListener('click', revealProfile);
+        }
+
+        function selectColor(color) {
+            gameState.color = color;
+            gameState.currentStep = 2;
+            
+            // Update UI
+            document.querySelectorAll('.jenga-block').forEach(block => {
+                block.classList.remove('selected');
+            });
+            document.querySelectorAll(`[data-color="${color}"]`).forEach(block => {
+                block.classList.add('selected');
+            });
+            
+            document.getElementById('selectedColorName').textContent = color;
+            document.getElementById('colorSelected').classList.remove('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('melodiesSection').classList.remove('hidden');
+                document.getElementById('melodiesSection').scrollIntoView({ behavior: 'smooth' });
+                updateProgressIndicator();
+            }, 1000);
+        }
+
+        function selectMelody(melody) {
+            gameState.melody = melody;
+            gameState.currentStep = 3;
+            
+            // Update UI
+            document.querySelectorAll('.melody-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-melody="${melody}"]`).classList.add('selected');
+            
+            setTimeout(() => {
+                document.getElementById('rhythmsSection').classList.remove('hidden');
+                document.getElementById('rhythmsSection').scrollIntoView({ behavior: 'smooth' });
+                updateProgressIndicator();
+            }, 500);
+        }
+
+        function selectRhythm(rhythm) {
+            gameState.rhythm = rhythm;
+            gameState.currentStep = 4;
+            
+            // Update UI
+            document.querySelectorAll('.rhythm-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-rhythm="${rhythm}"]`).classList.add('selected');
+            
+            setTimeout(() => {
+                document.getElementById('emotionsSection').classList.remove('hidden');
+                document.getElementById('emotionsSection').scrollIntoView({ behavior: 'smooth' });
+                updateProgressIndicator();
+            }, 500);
+        }
+
+        function selectEmotion(emotion) {
+            gameState.emotion = emotion;
+            gameState.currentStep = 5;
+            
+            // Update UI
+            document.querySelectorAll('.emotion-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-emotion="${emotion}"]`).classList.add('selected');
+            
+            // Enable reveal button
+            document.getElementById('revealButton').disabled = false;
+            document.getElementById('revealSection').classList.remove('hidden');
+            document.getElementById('revealSection').scrollIntoView({ behavior: 'smooth' });
+            updateProgressIndicator();
+        }
+
+        function updateProgressIndicator() {
+            for (let i = 1; i <= 4; i++) {
+                const step = document.getElementById(`step${i}`);
+                if (i < gameState.currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                } else if (i === gameState.currentStep) {
+                    step.classList.add('active');
+                    step.classList.remove('completed');
+                } else {
+                    step.classList.remove('active', 'completed');
+                }
+            }
+        }
+
+        function playSound(type, option) {
+            // Create synthesized audio for demonstration
+            // In production, replace with actual Google Drive URLs
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            let frequency;
+            let duration = 1000;
+            
+            // Generate different frequencies based on type and option
+            switch(type) {
+                case 'melody':
+                    frequency = option === 'Weightless' ? 220 : option === 'Sonidos del bosque' ? 440 : 880;
+                    break;
+                case 'rhythm':
+                    frequency = 160 + (Object.keys(soundUrls.rhythm).indexOf(option) * 40);
+                    duration = 1500;
+                    break;
+                case 'emotion':
+                    frequency = option === 'Alegría' ? 660 : option === 'Tristeza' ? 110 : 330;
+                    break;
+            }
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration/1000);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration/1000);
+            
+            // Visual feedback
+            const button = event.target.closest('.play-button');
+            button.classList.add('pulse');
+            setTimeout(() => button.classList.remove('pulse'), duration);
+        }
+
+        function revealProfile() {
+            const profile = findProfile(gameState.color, gameState.melody, gameState.rhythm, gameState.emotion);
+            
+            if (profile) {
+                displayProfile(profile);
+            } else {
+                // Generate a default profile if not found in database
+                displayDefaultProfile();
+            }
+            
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function findProfile(color, melody, rhythm, emotion) {
+            return profilesDatabase.find(p => 
+                p.Color === color && 
+                p["Melodía"] === melody && 
+                p.Ritmo === rhythm && 
+                p.Emoción === emotion
+            );
+        }
+
+        function displayProfile(profile) {
+            document.getElementById('profileName').innerHTML = 
+                `<i class="fas fa-star mr-2 text-yellow-500"></i>${profile["Nombre del perfil"]}`;
+            document.getElementById('selectedColor').textContent = profile.Color;
+            document.getElementById('selectedMelody').textContent = profile["Melodía"];
+            document.getElementById('selectedRhythm').textContent = profile.Ritmo;
+            document.getElementById('selectedEmotion').textContent = profile.Emoción;
+            document.getElementById('profileDescription').textContent = profile.Descripción;
+            document.getElementById('suggestedInstrument').textContent = profile["Instrumento sugerido"];
+            document.getElementById('recommendedActivity').textContent = profile["Actividad recomendada"];
+            document.getElementById('soundscape').textContent = profile["Paisaje sonoro"];
+            document.getElementById('motivationalPhrase').textContent = profile["Frase motivacional"];
+        }
+
+        function displayDefaultProfile() {
+            const defaultProfile = {
+                name: `${gameState.color} - Perfil Único`,
+                description: `Tu combinación única de ${gameState.color}, ${gameState.melody}, ${gameState.rhythm} y ${gameState.emotion} revela una personalidad musical especial y auténtica.`,
+                instrument: "Instrumento de percusión",
+                activity: "Explora diferentes ritmos y melodías para encontrar tu expresión personal",
+                soundscape: "Un espacio personal de creatividad y autodescubrimiento",
+                phrase: "Tu música interior es única e irrepetible"
+            };
+            
+            document.getElementById('profileName').innerHTML = 
+                `<i class="fas fa-star mr-2 text-yellow-500"></i>${defaultProfile.name}`;
+            document.getElementById('selectedColor').textContent = gameState.color;
+            document.getElementById('selectedMelody').textContent = gameState.melody;
+            document.getElementById('selectedRhythm').textContent = gameState.rhythm;
+            document.getElementById('selectedEmotion').textContent = gameState.emotion;
+            document.getElementById('profileDescription').textContent = defaultProfile.description;
+            document.getElementById('suggestedInstrument').textContent = defaultProfile.instrument;
+            document.getElementById('recommendedActivity').textContent = defaultProfile.activity;
+            document.getElementById('soundscape').textContent = defaultProfile.soundscape;
+            document.getElementById('motivationalPhrase').textContent = defaultProfile.phrase;
+        }
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Get profile data
+            const profileName = document.getElementById('profileName').textContent;
+            const description = document.getElementById('profileDescription').textContent;
+            const instrument = document.getElementById('suggestedInstrument').textContent;
+            const activity = document.getElementById('recommendedActivity').textContent;
+            const soundscape = document.getElementById('soundscape').textContent;
+            const phrase = document.getElementById('motivationalPhrase').textContent;
+            
+            // Add content to PDF
+            doc.setFontSize(20);
+            doc.text('Tu Sonido Interior', 20, 30);
+            
+            doc.setFontSize(16);
+            doc.text(profileName.replace('⭐', ''), 20, 50);
+            
+            doc.setFontSize(12);
+            doc.text('Tu Combinación:', 20, 70);
+            doc.text(`Color: ${gameState.color}`, 30, 80);
+            doc.text(`Melodía: ${gameState.melody}`, 30, 90);
+            doc.text(`Ritmo: ${gameState.rhythm}`, 30, 100);
+            doc.text(`Emoción: ${gameState.emotion}`, 30, 110);
+            
+            doc.text('Descripción:', 20, 130);
+            const descLines = doc.splitTextToSize(description, 170);
+            doc.text(descLines, 20, 140);
+            
+            doc.text('Instrumento Sugerido:', 20, 180);
+            doc.text(instrument, 30, 190);
+            
+            doc.text('Actividad Recomendada:', 20, 210);
+            const actLines = doc.splitTextToSize(activity, 170);
+            doc.text(actLines, 20, 220);
+            
+            doc.text('Paisaje Sonoro:', 20, 250);
+            doc.text(soundscape, 30, 260);
+            
+            doc.text('Frase Motivacional:', 20, 280);
+            const phraseLines = doc.splitTextToSize(phrase, 170);
+            doc.text(phraseLines, 20, 290);
+            
+            // Save the PDF
+            doc.save(`tu-sonido-interior-${gameState.color.toLowerCase()}.pdf`);
+        }
+
+        function shareProfile() {
+            const profileName = document.getElementById('profileName').textContent;
+            const text = `¡Descubrí mi perfil musical en "Tu Sonido Interior"! 
+            
+${profileName}
+
+Mi combinación: ${gameState.color} + ${gameState.melody} + ${gameState.rhythm} + ${gameState.emotion}
+
+${document.getElementById('motivationalPhrase').textContent}
+
+¡Descubre el tuyo también! #TuSonidoInterior #PerfilMusical`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Tu Sonido Interior - Mi Perfil Musical',
+                    text: text
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('¡Perfil copiado al portapapeles! Puedes compartirlo en tus redes sociales.');
+                });
+            }
+        }
+
+        // Add some extra interactivity
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('jenga-block')) {
+                // Add click sound effect
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 800;
+                oscillator.type = 'square';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }
+        });
+    </script>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqLVxIow0t4HmsruBGKQMd0CJwPKc1hwLxSi3QS3WrOAxdvWXhggGzDuyelxkN2mCLF272YhAoI4ayWDOXH7Dr7s7Xy8vGfmS%2BSAw17WBYCkU%2BlmVAiqqpfyZTgN%2FTSQd38LxLsMgBOsx3vokOL4jLpzQIW8u66wQdf%2Bn%2FBe7FpHwf9bwPS9ivvHgoUNCpyrTkmuQHMJgW5882VjnZflMrCy8KIpTLeA34zyX%2Bn7Ufs43JnDx16vB%2FIPSBqVjUFyZy4NERJDWl0ssMpHadt4Sa%2BJ4VyXGdvyxkTK1RS5oxV2KylJMYb8N5yWbttYxdR7BY0T8gPqEwjSSwyRa%2FIpVWXu5Gi%2FeJujDTydgCgdA66oik5ArhrxtzmORaoY263%2B0vLbia4GDHs7jNL5HhyYnFLnZCYPwxrtn6CL9qlo6KkbJJJmjFDrXO0hBpRQmOzhvOK4ZPRJ3mYXk%2B6AEbzfCl%2FeFuqhdTFJjxysuqZNnqEVEs4vOjT8hMWq6%2FF1JlrLQ0fB2JY28awjPmS78mqwtAI%3D";
+        window.__genspark_locale = "es-ES";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqLVxIow0t4HmsruBGKQMd0CJwPKc1hwLxSi3QS3WrOAxdvWXhggGzDuyelxkN2mCLF272YhAoI4ayWDOXH7Dr7s7Xy8vGfmS+SAw17WBYCkU+lmVAiqqpfyZTgN/TSQd38LxLsMgBOsx3vokOL4jLpzQIW8u66wQdf+n/Be7FpHwf9bwPS9ivvHgoUNCpyrTkmuQHMJgW5882VjnZflMrCy8KIpTLeA34zyX+n7Ufs43JnDx16vB/IPSBqVjUFyZy4NERJDWl0ssMpHadt4Sa+J4VyXGdvyxkTK1RS5oxV2KylJMYb8N5yWbttYxdR7BY0T8gPqEwjSSwyRa/IpVWXu5Gi/eJujDTydgCgdA66oik5ArhrxtzmORaoY263+0vLbia4GDHs7jNL5HhyYnFLnZCYPwxrtn6CL9qlo6KkbJJJmjFDrXO0hBpRQmOzhvOK4ZPRJ3mYXk+6AEbzfCl/eFuqhdTFJjxysuqZNnqEVEs4vOjT8hMWq6/F1JlrLQ0fB2JY28awjPmS78mqwtAI=";
+    </script>
+    
+        <script id="html_badge_script2" src="https://www.genspark.ai/html_badge.js"></script>
+        
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
