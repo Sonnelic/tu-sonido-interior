@@ -697,12 +697,37 @@
             }
         }
 
-        function playSound(type, option) {
+        
+let currentAudio = null;
+
+function playSound(type, option) {
   const url = soundUrls[type][option];
   if (!url) {
     console.warn('No se encontró la URL del sonido:', type, option);
     return;
   }
+
+  // Si ya hay audio sonando, lo pausamos
+  if (currentAudio && !currentAudio.paused) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+    return;
+  }
+
+  // Cargar nuevo audio
+  currentAudio = new Audio(url);
+  currentAudio.volume = 0.8;
+  currentAudio.play().catch(err => {
+    console.error('Error al reproducir el audio:', err);
+  });
+
+  const button = event.target.closest('.play-button');
+  if (button) {
+    button.classList.add('pulse');
+    setTimeout(() => button.classList.remove('pulse'), 1000);
+  }
+}
 
   const audio = new Audio(url);
   audio.volume = 0.8;
@@ -710,9 +735,18 @@
     console.error('Error al reproducir el audio:', err);
   });
 
+  const button = event.target.closest('.play-button');
+  if (button) {
+    button.classList.add('pulse');
+    setTimeout(() => button.classList.remove('pulse'), 1000);
+  }
 }
-                               
-            
+                                  
+            // Visual feedback
+            const button = event.target.closest('.play-button');
+            button.classList.add('pulse');
+            setTimeout(() => button.classList.remove('pulse'), duration);
+        }
 
         function revealProfile() {
             const profile = findProfile(gameState.color, gameState.melody, gameState.rhythm, gameState.emotion);
@@ -881,4 +915,3 @@ ${document.getElementById('motivationalPhrase').textContent}
         <script id="html_badge_script2" src="https://www.genspark.ai/html_badge.js"></script>
         
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
