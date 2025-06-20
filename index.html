@@ -22,11 +22,38 @@
       border-radius: 1rem;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    select, button {
-      width: 100%;
-      padding: 0.5rem;
+    .opciones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       margin-top: 0.5rem;
+    }
+    .opcion {
+      padding: 0.5rem 1rem;
+      border: 2px solid #ccc;
+      border-radius: 0.5rem;
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .opcion:hover {
+      background-color: #e3f2fd;
+    }
+    .opcion.seleccionada {
+      border-color: #1a237e;
+      background-color: #c5cae9;
+      font-weight: bold;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
       font-size: 1rem;
+      background-color: #1a237e;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      margin-top: 1rem;
     }
     #resultado {
       display: none;
@@ -39,47 +66,22 @@
 
   <div class="bloque">
     <h2>1. Elige el color de la ficha</h2>
-    <select id="color">
-      <option value="">-- Selecciona un color --</option>
-      <option value="Negro">Negro</option>
-      <option value="Rojo">Rojo</option>
-      <option value="Blanco">Blanco</option>
-      <option value="Amarillo">Amarillo</option>
-      <option value="Azul">Azul</option>
-      <option value="Verde">Verde</option>
-    </select>
+    <div class="opciones" id="colores"></div>
   </div>
 
   <div class="bloque">
-    <h2>2. ¿Qué melodía sientes más tuya?</h2>
-    <select id="melodia">
-      <option value="">-- Selecciona una melodía --</option>
-      <option value="Weightless">Weightless</option>
-      <option value="Sonidos del bosque">Sonidos del bosque</option>
-      <option value="Synfony">Synfony</option>
-    </select>
+    <h2>2. ¿Qué sonido sientes más tuyo?</h2>
+    <div class="opciones" id="sonidos"></div>
   </div>
 
   <div class="bloque">
     <h2>3. ¿Qué ritmo te mueve más?</h2>
-    <select id="ritmo">
-      <option value="">-- Selecciona un ritmo --</option>
-      <option value="Balada">Balada</option>
-      <option value="Despecho">Despecho</option>
-      <option value="Merengue">Merengue</option>
-      <option value="Reguetón">Reguetón</option>
-      <option value="Salsa">Salsa</option>
-    </select>
+    <div class="opciones" id="ritmos"></div>
   </div>
 
   <div class="bloque">
     <h2>4. ¿Qué emoción quieres expresar?</h2>
-    <select id="emocion">
-      <option value="">-- Selecciona una emoción --</option>
-      <option value="Suspenso">Suspenso</option>
-      <option value="Tristeza">Tristeza</option>
-      <option value="Alegría">Alegría</option>
-    </select>
+    <div class="opciones" id="emociones"></div>
   </div>
 
   <button onclick="generarPerfil()">🎵 Revelar Mi Perfil Musical</button>
@@ -94,27 +96,78 @@
   </div>
 
   <script>
-    let perfiles = [];
+    const SONIDOS = {
+      sonido1: 'https://drive.google.com/uc?id=1k9emw9ZUYV6HhdVP7akoroaZIUaAkPIm',
+      sonido2: 'https://drive.google.com/uc?id=1seDct6tNcHaEKqys0E91t0s8azzMbnfj',
+      sonido3: 'https://drive.google.com/uc?id=1LUft90c6hUmS3pefXzaeiM8E_JWQ3v7A',
+      ritmo1: 'https://drive.google.com/uc?id=1FNyn5JnlrZe5zlChQfewrYNuv0RmsSGl',
+      ritmo2: 'https://drive.google.com/uc?id=16YtNf5vI81b9Tq1Z-vAaLU11IW-OMEZi',
+      ritmo3: 'https://drive.google.com/uc?id=1YpFhpVp28A3yam_Tm5efHDs88U7PWEGd',
+      ritmo4: 'https://drive.google.com/uc?id=1VVXw2a9_BIgk8b0oL3QArqJwF9rLIZWp',
+      ritmo5: 'https://drive.google.com/uc?id=1zW_bvHrYbvM_LGWw1eOkb4lCtsvfGOZP',
+      emocion1: 'https://drive.google.com/uc?id=1MEl77pMkrsONxsAbqS4gWh7s3q9Xhswi',
+      emocion2: 'https://drive.google.com/uc?id=1LveJlSVdYHJFEzG-lCjuZ7rT3f4gekQW',
+      emocion3: 'https://drive.google.com/uc?id=1_og2JpB2CZEwzfc8lTklrM4P9V-JN03O'
+    };
 
+    const opciones = {
+      colores: ["Negro", "Rojo", "Blanco", "Amarillo", "Azul", "Verde"],
+      sonidos: ["Sonido 1", "Sonido 2", "Sonido 3"],
+      ritmos: ["Ritmo 1", "Ritmo 2", "Ritmo 3", "Ritmo 4", "Ritmo 5"],
+      emociones: ["Emoción 1", "Emoción 2", "Emoción 3"]
+    };
+
+    const seleccion = {
+      color: null,
+      sonido: null,
+      ritmo: null,
+      emocion: null
+    };
+
+    function crearBotones(id, valores, tipo) {
+      const contenedor = document.getElementById(id);
+      valores.forEach((valor, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = valor;
+        btn.classList.add("opcion");
+        btn.onclick = () => {
+          document.querySelectorAll(`#${id} .opcion`).forEach(b => b.classList.remove("seleccionada"));
+          btn.classList.add("seleccionada");
+          seleccion[tipo] = valor;
+          if (tipo !== "color") {
+            const audio = new Audio(SONIDOS[`${tipo}${index + 1}`]);
+            audio.play();
+          } else {
+            alert(`Has elegido el color ${valor}. Toca el instrumento correspondiente.`);
+          }
+        };
+        contenedor.appendChild(btn);
+      });
+    }
+
+    window.onload = () => {
+      crearBotones("colores", opciones.colores, "color");
+      crearBotones("sonidos", opciones.sonidos, "sonido");
+      crearBotones("ritmos", opciones.ritmos, "ritmo");
+      crearBotones("emociones", opciones.emociones, "emocion");
+    };
+
+    let perfiles = [];
     fetch("Diagnostico_Completo_Tu_Sonido_Interior.json")
       .then(response => response.json())
       .then(data => perfiles = data)
       .catch(error => console.error("Error cargando JSON:", error));
 
     function generarPerfil() {
-      const color = document.getElementById("color").value;
-      const melodia = document.getElementById("melodia").value;
-      const ritmo = document.getElementById("ritmo").value;
-      const emocion = document.getElementById("emocion").value;
-
-      if (!color || !melodia || !ritmo || !emocion) {
+      const { color, sonido, ritmo, emocion } = seleccion;
+      if (!color || !sonido || !ritmo || !emocion) {
         alert("Por favor, completa todas las selecciones.");
         return;
       }
 
       const perfil = perfiles.find(p => 
         p.Color === color && 
-        p["Melodía"] === melodia && 
+        p["Melodía"] === sonido && 
         p.Ritmo === ritmo && 
         p.Emoción === emocion);
 
