@@ -550,22 +550,22 @@
 
         // Sound URLs (placeholder - replace with your Google Drive URLs)
         const soundUrls = {
-            melody: {
-    'Weightless': 'https://drive.google.com/uc?id=1k9emw9ZUVY6HhdvVP7akoroa2UuAkPlm',
-    'Sonidos del bosque': 'https://drive.google.com/uc?id=1seDct6tNcHaEKqys0E91t0s8aztMbnfj',
-    'Synfony': 'https://drive.google.com/uc?id=1LUft90c6hUmS3pefXzaeiM8E_JWQ3v7A'
+  melody: {
+    'Weightless': 'https://dl.dropboxusercontent.com/scl/fi/yci9wbuuekspmv359ha0p/1sonido1.mp3?rlkey=6wt3lbfcz2ium6h2x6n0a182r',
+    'Sonidos del bosque': 'https://dl.dropboxusercontent.com/scl/fi/kgheex76eze9qwigmubvw/1sonido2.mp3?rlkey=srkisoxpituldcjfmys2bph6e',
+    'Synfony': 'https://dl.dropboxusercontent.com/scl/fi/v6a7fjrl9n5ul06ia9a72/1sonido3.mp3?rlkey=cc8ajn6nx67yjv4izln6c0n39'
   },
   rhythm: {
-    'Balada': 'https://drive.google.com/uc?id=YOUR_BALADA_ID',
-    'Despecho': 'https://drive.google.com/uc?id=YOUR_DESPECHO_ID',
-    'Merengue': 'https://drive.google.com/uc?id=YOUR_MERENGUE_ID',
-    'Reguetón': 'https://drive.google.com/uc?id=YOUR_REGGAETON_ID',
-    'Salsa': 'https://drive.google.com/uc?id=YOUR_SALSA_ID'
+    'Balada': 'https://dl.dropboxusercontent.com/scl/fi/qp1ybmcu8ppbtuwer8lgr/2ritmo1.mp3?rlkey=oyheem04xpitzji11rlm344w2',
+    'Despecho': 'https://dl.dropboxusercontent.com/scl/fi/splu4gxo8jhr9l3pyxbx1/2ritmo2.mp3?rlkey=gdvg4bflvj7pewj3gpstcz4jk',
+    'Merengue': 'https://dl.dropboxusercontent.com/scl/fi/s1x3m2ry8ihyy5q7rpu0h/2ritmo3.mp3?rlkey=5o3kv9nzmcn19k68h9nahcmlf',
+    'Reguetón': 'https://dl.dropboxusercontent.com/scl/fi/s1x3m2ry8ihyy5q7rpu0h/2ritmo3.mp3?rlkey=5o3kv9nzmcn19k68h9nahcmlf',
+    'Salsa': 'https://dl.dropboxusercontent.com/scl/fi/06t5hmvo9tmh17kcp16xs/2ritmo5.mp3?rlkey=e4v3a4mxfje2zuryym2jvnnis'
   },
   emotion: {
-    'Suspenso': 'https://drive.google.com/uc?id=YOUR_SUSPENSE_ID',
-    'Tristeza': 'https://drive.google.com/uc?id=YOUR_SADNESS_ID',
-    'Alegría': 'https://drive.google.com/uc?id=YOUR_JOY_ID'
+    'Suspenso': 'https://dl.dropboxusercontent.com/scl/fi/8ks4shizrbcj929729bu6/3emocion1.mp3?rlkey=o1ghp9sdixtio3m9ajxje6yun',
+    'Tristeza': 'https://dl.dropboxusercontent.com/scl/fi/8d7rafojr6q0m4g8ap9nu/3emocion2.mp3?rlkey=i3dcbi7g3datrtoz5ir3m1xke',
+    'Alegría': 'https://dl.dropboxusercontent.com/scl/fi/zp2v713m1xtspp0xls1oc/3emocion3.mp3?rlkey=o8ndag8y9rr230fsnonm7kkm1'
   }
 };
 
@@ -698,26 +698,24 @@
         }
 
         function playSound(type, option) {
-            // Create synthesized audio for demonstration
-            // In production, replace with actual Google Drive URLs
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
-            let frequency;
-            let duration = 1000;
-            
-            // Generate different frequencies based on type and option
-            switch(type) {
-                case 'melody':
-                    frequency = option === 'Weightless' ? 220 : option === 'Sonidos del bosque' ? 440 : 880;
-                    break;
-                case 'rhythm':
-                    frequency = 160 + (Object.keys(soundUrls.rhythm).indexOf(option) * 40);
-                    duration = 1500;
-                    break;
-                case 'emotion':
-                    frequency = option === 'Alegría' ? 660 : option === 'Tristeza' ? 110 : 330;
-                    break;
-            }
+  const url = soundUrls[type][option];
+  if (!url) {
+    console.warn('No se encontró la URL del sonido:', type, option);
+    return;
+  }
+
+  const audio = new Audio(url);
+  audio.volume = 0.8;
+  audio.play().catch(err => {
+    console.error('Error al reproducir el audio:', err);
+  });
+
+  const button = event.target.closest('.play-button');
+  if (button) {
+    button.classList.add('pulse');
+    setTimeout(() => button.classList.remove('pulse'), 1000);
+  }
+}
             
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
