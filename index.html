@@ -35,6 +35,7 @@
       background-color: #ffffff;
       cursor: pointer;
       transition: 0.3s;
+      color: black;
     }
     .opcion:hover {
       background-color: #e3f2fd;
@@ -44,6 +45,15 @@
       background-color: #c5cae9;
       font-weight: bold;
     }
+    .color-btn {
+      color: white;
+    }
+    .Negro { background-color: #000; }
+    .Rojo { background-color: #d32f2f; }
+    .Blanco { background-color: #ffffff; color: black; border-color: #ccc; }
+    .Amarillo { background-color: #fbc02d; color: black; }
+    .Azul { background-color: #1a237e; }
+    .Verde { background-color: #388e3c; }
     button {
       width: 100%;
       padding: 0.75rem;
@@ -130,6 +140,7 @@
         const btn = document.createElement("button");
         btn.innerText = valor;
         btn.classList.add("opcion");
+        if (tipo === "color") btn.classList.add("color-btn", valor);
         btn.onclick = () => {
           document.querySelectorAll(`#${id} .opcion`).forEach(b => b.classList.remove("seleccionada"));
           btn.classList.add("seleccionada");
@@ -188,4 +199,3 @@
   </script>
 </body>
 </html>
-<!-- Forzar redeploy tras subir JSON -->
