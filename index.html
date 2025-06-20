@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu Sonido Interior</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f3f3f3;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #1a237e;
+    }
+    .bloque {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    select, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+    #resultado {
+      display: none;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tu Sonido Interior</h1>
+
+  <div class="bloque">
+    <h2>1. Elige el color de la ficha</h2>
+    <select id="color">
+      <option value="">-- Selecciona un color --</option>
+      <option value="Negro">Negro</option>
+      <option value="Rojo">Rojo</option>
+      <option value="Blanco">Blanco</option>
+      <option value="Amarillo">Amarillo</option>
+      <option value="Azul">Azul</option>
+      <option value="Verde">Verde</option>
+    </select>
+  </div>
+
+  <div class="bloque">
+    <h2>2. ¿Qué melodía sientes más tuya?</h2>
+    <select id="melodia">
+      <option value="">-- Selecciona una melodía --</option>
+      <option value="Weightless">Weightless</option>
+      <option value="Sonidos del bosque">Sonidos del bosque</option>
+      <option value="Synfony">Synfony</option>
+    </select>
+  </div>
+
+  <div class="bloque">
+    <h2>3. ¿Qué ritmo te mueve más?</h2>
+    <select id="ritmo">
+      <option value="">-- Selecciona un ritmo --</option>
+      <option value="Balada">Balada</option>
+      <option value="Despecho">Despecho</option>
+      <option value="Merengue">Merengue</option>
+      <option value="Reguetón">Reguetón</option>
+      <option value="Salsa">Salsa</option>
+    </select>
+  </div>
+
+  <div class="bloque">
+    <h2>4. ¿Qué emoción quieres expresar?</h2>
+    <select id="emocion">
+      <option value="">-- Selecciona una emoción --</option>
+      <option value="Suspenso">Suspenso</option>
+      <option value="Tristeza">Tristeza</option>
+      <option value="Alegría">Alegría</option>
+    </select>
+  </div>
+
+  <button onclick="generarPerfil()">🎵 Revelar Mi Perfil Musical</button>
+
+  <div id="resultado" class="bloque">
+    <h2 id="nombrePerfil"></h2>
+    <p id="descripcion"></p>
+    <p><strong>Instrumento sugerido:</strong> <span id="instrumento"></span></p>
+    <p><strong>Actividad recomendada:</strong> <span id="actividad"></span></p>
+    <p><strong>Paisaje sonoro:</strong> <span id="paisaje"></span></p>
+    <blockquote id="frase"></blockquote>
+  </div>
+
+  <script>
+    let perfiles = [];
+
+    fetch("Diagnostico_Completo_Tu_Sonido_Interior.json")
+      .then(response => response.json())
+      .then(data => perfiles = data)
+      .catch(error => console.error("Error cargando JSON:", error));
+
+    function generarPerfil() {
+      const color = document.getElementById("color").value;
+      const melodia = document.getElementById("melodia").value;
+      const ritmo = document.getElementById("ritmo").value;
+      const emocion = document.getElementById("emocion").value;
+
+      if (!color || !melodia || !ritmo || !emocion) {
+        alert("Por favor, completa todas las selecciones.");
+        return;
+      }
+
+      const perfil = perfiles.find(p => 
+        p.Color === color && 
+        p["Melodía"] === melodia && 
+        p.Ritmo === ritmo && 
+        p.Emoción === emocion);
+
+      if (!perfil) {
+        alert("No se encontró el perfil correspondiente. Verifica los datos.");
+        return;
+      }
+
+      document.getElementById("nombrePerfil").innerText = perfil["Nombre del perfil"];
+      document.getElementById("descripcion").innerText = perfil.Descripción;
+      document.getElementById("instrumento").innerText = perfil["Instrumento sugerido"];
+      document.getElementById("actividad").innerText = perfil["Actividad recomendada"];
+      document.getElementById("paisaje").innerText = perfil["Paisaje sonoro"];
+      document.getElementById("frase").innerText = perfil["Frase motivacional"];
+
+      document.getElementById("resultado").style.display = "block";
+    }
+  </script>
+</body>
+</html>
