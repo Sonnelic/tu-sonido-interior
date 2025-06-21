@@ -88,6 +88,20 @@
             box-shadow: 0 4px 15px rgba(139,92,246,0.4);
         }
         
+        .stop-button {
+            background: linear-gradient(45deg, #ef4444, #f59e0b);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
         .result-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
             backdrop-filter: blur(15px);
@@ -264,8 +278,11 @@
                                 <h3 class="font-semibold text-lg">MELODÍA 1</h3>
                                 <p class="text-gray-600 text-sm">Melodía relajante y envolvente</p>
                             </div>
-                            <button class="play-button" onclick="playSound('melody', 'Weightless')">
+                            <button class="play-button melody-play" onclick="playSound('melody', 'Weightless', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button melody-stop hidden" onclick="stopSound('melody', 'Weightless', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -276,8 +293,11 @@
                                 <h3 class="font-semibold text-lg">MELODÍA 2</h3>
                                 <p class="text-gray-600 text-sm">Conexión con la naturaleza</p>
                             </div>
-                            <button class="play-button" onclick="playSound('melody', 'Sonidos del bosque')">
+                            <button class="play-button melody-play" onclick="playSound('melody', 'Sonidos del bosque', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button melody-stop hidden" onclick="stopSound('melody', 'Sonidos del bosque', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -288,8 +308,11 @@
                                 <h3 class="font-semibold text-lg">MELODÍA 3</h3>
                                 <p class="text-gray-600 text-sm">Armonía clásica moderna</p>
                             </div>
-                            <button class="play-button" onclick="playSound('melody', 'Synfony')">
+                            <button class="play-button melody-play" onclick="playSound('melody', 'Synfony', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button melody-stop hidden" onclick="stopSound('melody', 'Synfony', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -318,8 +341,11 @@
                                 <h3 class="font-semibold text-lg">RITMO 1</h3>
                                 <p class="text-gray-600 text-sm">Suave y emotivo</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Balada')">
+                            <button class="play-button rhythm-play" onclick="playSound('rhythm', 'Balada', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button rhythm-stop hidden" onclick="stopSound('rhythm', 'Balada', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -330,8 +356,11 @@
                                 <h3 class="font-semibold text-lg">RITMO 2</h3>
                                 <p class="text-gray-600 text-sm">Intenso y apasionado</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Despecho')">
+                            <button class="play-button rhythm-play" onclick="playSound('rhythm', 'Despecho', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button rhythm-stop hidden" onclick="stopSound('rhythm', 'Despecho', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -342,8 +371,11 @@
                                 <h3 class="font-semibold text-lg">RITMO 3</h3>
                                 <p class="text-gray-600 text-sm">Alegre y RUMBERO(A)</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Merengue')">
+                            <button class="play-button rhythm-play" onclick="playSound('rhythm', 'Merengue', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button rhythm-stop hidden" onclick="stopSound('rhythm', 'Merengue', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -354,8 +386,11 @@
                                 <h3 class="font-semibold text-lg">RITMO 4</h3>
                                 <p class="text-gray-600 text-sm">Urbano y enérgico</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Reguetón')">
+                            <button class="play-button rhythm-play" onclick="playSound('rhythm', 'Reguetón', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button rhythm-stop hidden" onclick="stopSound('rhythm', 'Reguetón', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -366,8 +401,11 @@
                                 <h3 class="font-semibold text-lg">RITMO 5</h3>
                                 <p class="text-gray-600 text-sm">Tropical y vibrante</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Salsa')">
+                            <button class="play-button rhythm-play" onclick="playSound('rhythm', 'Salsa', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button rhythm-stop hidden" onclick="stopSound('rhythm', 'Salsa', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -396,8 +434,11 @@
                                 <h3 class="font-semibold text-lg">EMOCIÓN 1</h3>
                                 <p class="text-gray-600 text-sm">Misterioso(a)</p>
                             </div>
-                            <button class="play-button" onclick="playSound('emotion', 'Suspenso')">
+                            <button class="play-button emotion-play" onclick="playSound('emotion', 'Suspenso', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button emotion-stop hidden" onclick="stopSound('emotion', 'Suspenso', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -408,8 +449,11 @@
                                 <h3 class="font-semibold text-lg">EMOCIÓN 2</h3>
                                 <p class="text-gray-600 text-sm">Personalidad profunda y reflexiva</p>
                             </div>
-                            <button class="play-button" onclick="playSound('emotion', 'Tristeza')">
+                            <button class="play-button emotion-play" onclick="playSound('emotion', 'Tristeza', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button emotion-stop hidden" onclick="stopSound('emotion', 'Tristeza', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -420,8 +464,11 @@
                                 <h3 class="font-semibold text-lg">EMOCIÓN 3</h3>
                                 <p class="text-gray-600 text-sm">Personalidad positiva y radiante</p>
                             </div>
-                            <button class="play-button" onclick="playSound('emotion', 'Alegría')">
+                            <button class="play-button emotion-play" onclick="playSound('emotion', 'Alegría', this)">
                                 <i class="fas fa-play"></i>
+                            </button>
+                            <button class="stop-button emotion-stop hidden" onclick="stopSound('emotion', 'Alegría', this)">
+                                <i class="fas fa-stop"></i>
                             </button>
                         </div>
                     </div>
@@ -518,7 +565,8 @@
             melody: null,
             rhythm: null,
             emotion: null,
-            currentStep: 1
+            currentStep: 1,
+            currentAudio: null
         };
 
         // Complete profiles database
@@ -748,12 +796,28 @@
             }
         }
 
-        function playSound(type, option) {
+        function playSound(type, option, buttonElement) {
+            // Stop any currently playing audio
+            if (gameState.currentAudio) {
+                gameState.currentAudio.pause();
+                gameState.currentAudio = null;
+                resetAllAudioButtons();
+            }
+
             const url = soundUrls[type][option];
             if (!url) {
                 console.warn('No se encontró la URL del sonido:', type, option);
                 return;
             }
+
+            // Find the parent option card
+            const optionCard = buttonElement.closest(`.${type}-option`);
+            
+            // Hide play button and show stop button
+            const playButton = optionCard.querySelector(`.${type}-play`);
+            const stopButton = optionCard.querySelector(`.${type}-stop`);
+            playButton.classList.add('hidden');
+            stopButton.classList.remove('hidden');
 
             // Opacar todas las opciones de este tipo
             document.querySelectorAll(`.${type}-option`).forEach(el => {
@@ -762,17 +826,16 @@
             });
 
             // Resaltar la opción seleccionada
-            const selectedOption = document.querySelector(`[data-${type}="${option}"]`);
-            if (selectedOption) {
-                selectedOption.style.opacity = '1';
-                selectedOption.classList.add('pulse');
-            }
+            optionCard.style.opacity = '1';
+            optionCard.classList.add('pulse');
 
             const audio = new Audio(url);
             audio.volume = 0.8;
+            gameState.currentAudio = audio;
             
             audio.addEventListener('ended', () => {
-                // Restaurar opacidad cuando termina la reproducción
+                // Restaurar cuando termina la reproducción
+                resetAudioButtons(type, option);
                 document.querySelectorAll(`.${type}-option`).forEach(el => {
                     el.style.opacity = '1';
                     el.classList.remove('pulse');
@@ -781,11 +844,51 @@
             
             audio.play().catch(err => {
                 console.error('Error al reproducir el audio:', err);
-                // Restaurar opacidad si hay error
+                resetAudioButtons(type, option);
                 document.querySelectorAll(`.${type}-option`).forEach(el => {
                     el.style.opacity = '1';
                     el.classList.remove('pulse');
                 });
+            });
+        }
+
+        function stopSound(type, option, buttonElement) {
+            if (gameState.currentAudio) {
+                gameState.currentAudio.pause();
+                gameState.currentAudio = null;
+                resetAudioButtons(type, option);
+                
+                // Find the parent option card
+                const optionCard = buttonElement.closest(`.${type}-option`);
+                optionCard.style.opacity = '1';
+                optionCard.classList.remove('pulse');
+                
+                // Restore all options opacity
+                document.querySelectorAll(`.${type}-option`).forEach(el => {
+                    el.style.opacity = '1';
+                    el.classList.remove('pulse');
+                });
+            }
+        }
+
+        function resetAudioButtons(type, option) {
+            const optionCard = document.querySelector(`[data-${type}="${option}"]`);
+            if (optionCard) {
+                const playButton = optionCard.querySelector(`.${type}-play`);
+                const stopButton = optionCard.querySelector(`.${type}-stop`);
+                if (playButton && stopButton) {
+                    playButton.classList.remove('hidden');
+                    stopButton.classList.add('hidden');
+                }
+            }
+        }
+
+        function resetAllAudioButtons() {
+            document.querySelectorAll('.melody-play, .rhythm-play, .emotion-play').forEach(btn => {
+                btn.classList.remove('hidden');
+            });
+            document.querySelectorAll('.melody-stop, .rhythm-stop, .emotion-stop').forEach(btn => {
+                btn.classList.add('hidden');
             });
         }
 
