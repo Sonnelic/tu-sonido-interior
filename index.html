@@ -250,15 +250,40 @@
             50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
+        
+        .header-logo {
+            height: 80px;
+            margin-left: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 640px) {
+            .header-logo {
+                height: 60px;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
-                <i class="fas fa-music mr-4"></i>Tu Sonido Interior
-            </h1>
+            <div class="header-container">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">
+                    <i class="fas fa-music mr-4"></i>Tu Sonido Interior
+                </h1>
+                <img src="https://www.dropbox.com/scl/fi/9kbirah11kcadz25op6bq/armonia-plena.jpg?rlkey=0pcx2bcxgtuf9ymbqn8hgrd8q&st=8d7z22nh&dl=1" alt="Logo Armonía Plena" class="header-logo">
+            </div>
             <p class="text-xl text-white opacity-90 mb-2">
                 Descubre tu personalidad musical a través de la emoción, el ritmo y la vibración
             </p>
@@ -686,6 +711,66 @@
                 "Actividad recomendada": "Crea una coreografía espontánea que combine movimiento y expresión vocal.",
                 "Paisaje sonoro": "Una playa al atardecer con risas y olas",
                 "Frase motivacional": "Tu alegría musical es contagiosa como la luz del sol."
+            },
+            {
+                "Color": "Negro",
+                "Melodía": "Synfony",
+                "Ritmo": "Reguetón",
+                "Emoción": "Suspenso",
+                "Nombre del perfil": "Negro - Misterio Urbano",
+                "Descripción": "Tu combinación de Negro, Synfony, Reguetón y Suspenso revela una personalidad musical intensa y misteriosa. Eres innovador y te gusta explorar nuevos sonidos.",
+                "Instrumento sugerido": "Bajo eléctrico",
+                "Actividad recomendada": "Crea una mezcla musical que combine elementos urbanos con toques clásicos.",
+                "Paisaje sonoro": "Una ciudad nocturna con ecos distantes",
+                "Frase motivacional": "Tu música rompe barreras y crea nuevos caminos."
+            },
+            {
+                "Color": "Rojo",
+                "Melodía": "Weightless",
+                "Ritmo": "Despecho",
+                "Emoción": "Tristeza",
+                "Nombre del perfil": "Rojo - Pasión Profunda",
+                "Descripción": "Tu combinación de Rojo, Weightless, Despecho y Tristeza muestra una personalidad musical apasionada y emotiva. Expresas con intensidad tus sentimientos a través de la música.",
+                "Instrumento sugerido": "Violín",
+                "Actividad recomendada": "Improvisa una melodía que exprese una historia emocional personal.",
+                "Paisaje sonoro": "Un atardecer tormentoso con truenos lejanos",
+                "Frase motivacional": "Tu pasión musical es el fuego que alimenta tu alma."
+            },
+            {
+                "Color": "Azul",
+                "Melodía": "Weightless",
+                "Ritmo": "Balada",
+                "Emoción": "Alegría",
+                "Nombre del perfil": "Azul - Serenidad Radiante",
+                "Descripción": "Tu combinación de Azul, Weightless, Balada y Alegría revela una personalidad musical tranquila pero luminosa. Encuentras alegría en la calma y la belleza simple.",
+                "Instrumento sugerido": "Arpa",
+                "Actividad recomendada": "Toca una melodía suave mientras contemplas un paisaje hermoso.",
+                "Paisaje sonoro": "Un río cristalino bajo el sol de la mañana",
+                "Frase motivacional": "Tu música fluye como el agua, suave pero poderosa."
+            },
+            {
+                "Color": "Verde",
+                "Melodía": "Synfony",
+                "Ritmo": "Reguetón",
+                "Emoción": "Tristeza",
+                "Nombre del perfil": "Verde - Contrastes Urbanos",
+                "Descripción": "Tu combinación de Verde, Synfony, Reguetón y Tristeza muestra una personalidad musical que equilibra lo urbano con lo natural, creando contrastes interesantes.",
+                "Instrumento sugerido": "Teclado electrónico",
+                "Actividad recomendada": "Experimenta mezclando sonidos naturales con ritmos urbanos.",
+                "Paisaje sonoro": "Un parque urbano al atardecer",
+                "Frase motivacional": "En tus contrastes musicales encuentras tu voz única."
+            },
+            {
+                "Color": "Blanco",
+                "Melodía": "Sonidos del bosque",
+                "Ritmo": "Salsa",
+                "Emoción": "Alegría",
+                "Nombre del perfil": "Blanco - Pureza Tropical",
+                "Descripción": "Tu combinación de Blanco, Sonidos del bosque, Salsa y Alegría revela una personalidad musical pura y vibrante. Encuentras alegría en la fusión de lo natural con lo festivo.",
+                "Instrumento sugerido": "Marimba",
+                "Actividad recomendada": "Baila al ritmo de la salsa mientras te conectas con sonidos naturales.",
+                "Paisaje sonoro": "Una playa tropical con palmeras moviéndose al viento",
+                "Frase motivacional": "Tu música es un reflejo de la alegría pura y simple."
             }
         ];
 
