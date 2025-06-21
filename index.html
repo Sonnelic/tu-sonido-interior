@@ -497,6 +497,16 @@
             <p class="mt-4 text-sm">© Tu Sonido Interior - Juego Musical Terapéutico</p>
         </div>
     </div>
+<!-- Resultado del perfil musical -->
+<div id="resultadoFinal" style="display:none; padding: 20px; border: 1px solid #ccc; border-radius: 10px; margin-top: 30px; color: white; background-color: #222;">
+  <h2>🎵 Tu Perfil Musical</h2>
+  <p><strong>Nombre del perfil:</strong> <span id="perfilNombre"></span></p>
+  <p><strong>Descripción:</strong> <span id="perfilDescripcion"></span></p>
+  <p><strong>Instrumento sugerido:</strong> <span id="instrumentoSugerido"></span></p>
+  <p><strong>Actividad musical recomendada:</strong> <span id="actividadMusical"></span></p>
+  <p><strong>Paisaje sonoro ideal:</strong> <span id="paisajeSonoro"></span></p>
+  <p><strong>Frase motivacional:</strong> <span id="fraseMotivacional" style="font-style: italic;"></span></p>
+</div>
 
     <script>
         // Global game state
@@ -822,6 +832,15 @@
             doc.save(`tu-sonido-interior-${gameState.color.toLowerCase()}.pdf`);
         }
 
+  <h2>🎵 Tu Perfil Musical</h2>
+  <p><strong>Nombre del perfil:</strong> <span id="perfilNombre"></span></p>
+  <p><strong>Descripción:</strong> <span id="perfilDescripcion"></span></p>
+  <p><strong>Instrumento sugerido:</strong> <span id="instrumentoSugerido"></span></p>
+  <p><strong>Actividad musical recomendada:</strong> <span id="actividadMusical"></span></p>
+  <p><strong>Paisaje sonoro ideal:</strong> <span id="paisajeSonoro"></span></p>
+  <p><strong>Frase motivacional:</strong> <span id="fraseMotivacional" style="font-style: italic;"></span></p>
+</div>
+
         function shareProfile() {
             const profileName = document.getElementById('profileName').textContent;
             const text = `¡Descubrí mi perfil musical en "Tu Sonido Interior"! 
@@ -868,7 +887,10 @@ ${document.getElementById('motivationalPhrase').textContent}
                 oscillator.stop(audioContext.currentTime + 0.1);
             }
         });
+		
+		
     </script>
+	
 </body>
 </html>
     <script id="html_badge_script1">
