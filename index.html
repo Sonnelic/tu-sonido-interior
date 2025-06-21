@@ -102,13 +102,57 @@
             transition: all 0.3s ease;
         }
         
-        .result-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 10px solid #fbbf24;
+        }
+        
+        .profile-header {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .profile-section {
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .profile-section:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-title {
+            color: #f59e0b;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .profile-title i {
+            margin-right: 10px;
+        }
+        
+        .profile-content {
+            color: #4b5563;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .signature-item {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6b7280;
         }
         
         .reveal-button {
@@ -182,6 +226,9 @@
             .option-card {
                 padding: 15px;
                 margin: 8px 0;
+            }
+            .signature-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
@@ -485,61 +532,42 @@
 
         <!-- Results Section -->
         <div id="resultsSection" class="hidden">
-            <div class="result-card fade-in">
-                <div class="text-center mb-6">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2" id="profileName">
-                        <i class="fas fa-star mr-2 text-yellow-500"></i>Tu Perfil Musical
-                    </h2>
-                    <div class="text-lg text-gray-600 mb-4">
-                        <span class="bg-gray-100 px-3 py-1 rounded-full mr-2" id="selectedColor"></span>
-                        <span class="bg-blue-100 px-3 py-1 rounded-full mr-2" id="selectedMelody"></span>
-                        <span class="bg-green-100 px-3 py-1 rounded-full mr-2" id="selectedRhythm"></span>
-                        <span class="bg-purple-100 px-3 py-1 rounded-full" id="selectedEmotion"></span>
+            <div class="profile-card fade-in">
+                <div class="profile-header">
+                    <h2 class="text-3xl font-bold mb-2" id="profileName">Amarillo - Perfil Único</h2>
+                    <div class="flex justify-center space-x-4 mt-4">
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full">Synfony</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full">Reguetón</span>
+                        <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full">Suspenso</span>
                     </div>
                 </div>
                 
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800 mb-2">
-                                <i class="fas fa-user mr-2 text-blue-500"></i>Descripción de tu Perfil
-                            </h3>
-                            <p class="text-gray-700" id="profileDescription"></p>
-                        </div>
-                        
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800 mb-2">
-                                <i class="fas fa-guitar mr-2 text-green-500"></i>Instrumento Sugerido
-                            </h3>
-                            <p class="text-gray-700" id="suggestedInstrument"></p>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800 mb-2">
-                                <i class="fas fa-running mr-2 text-purple-500"></i>Actividad Recomendada
-                            </h3>
-                            <p class="text-gray-700" id="recommendedActivity"></p>
-                        </div>
-                        
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-gray-800 mb-2">
-                                <i class="fas fa-tree mr-2 text-green-600"></i>Paisaje Sonoro
-                            </h3>
-                            <p class="text-gray-700" id="soundscape"></p>
-                        </div>
-                    </div>
+                <div class="profile-section">
+                    <h3 class="profile-title"><i class="fas fa-user"></i> Descripción de tu Perfil</h3>
+                    <p class="profile-content" id="profileDescription">Tu combinación única de Amarillo, Synfony, Reguetón y Suspenso revela una personalidad musical especial y auténtica.</p>
                 </div>
                 
-                <div class="mt-6 p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg text-center">
-                    <h3 class="font-semibold text-gray-800 mb-2">
-                        <i class="fas fa-quote-left mr-2 text-pink-500"></i>Tu Frase Motivacional
-                    </h3>
-                    <p class="text-lg italic text-gray-700" id="motivationalPhrase"></p>
+                <div class="profile-section">
+                    <h3 class="profile-title"><i class="fas fa-guitar"></i> Instrumento Sugerido</h3>
+                    <p class="profile-content" id="suggestedInstrument">Instrumento de percusión</p>
                 </div>
                 
-                <div class="mt-8 text-center">
+                <div class="profile-section">
+                    <h3 class="profile-title"><i class="fas fa-running"></i> Actividad Recomendada</h3>
+                    <p class="profile-content" id="recommendedActivity">Explora diferentes ritmos y melodías para encontrar tu expresión personal</p>
+                </div>
+                
+                <div class="profile-section">
+                    <h3 class="profile-title"><i class="fas fa-tree"></i> Paisaje Sonoro</h3>
+                    <p class="profile-content" id="soundscape">Un espacio personal de creatividad y autodescubrimiento</p>
+                </div>
+                
+                <div class="profile-section bg-yellow-50">
+                    <h3 class="profile-title"><i class="fas fa-quote-left"></i> Tu Frase Motivacional</h3>
+                    <p class="profile-content italic" id="motivationalPhrase">Tu música interior es única e irrepetible</p>
+                </div>
+                
+                <div class="profile-section text-center py-6">
                     <button onclick="generatePDF()" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
                         <i class="fas fa-file-pdf mr-2"></i>Descargar Mi Perfil en PDF
                     </button>
@@ -547,13 +575,29 @@
                         <i class="fas fa-share mr-2"></i>Compartir Mi Perfil
                     </button>
                 </div>
+                
+                <div class="profile-section px-6 pb-6">
+                    <h3 class="text-sm font-semibold text-gray-500 mb-2">Firmado por:</h3>
+                    <div class="signature-grid">
+                        <div class="signature-item">Doc.</div>
+                        <div class="signature-item">Desc.</div>
+                        <div class="signature-item">Dec.</div>
+                        <div class="signature-item">Dec.</div>
+                        <div class="signature-item">App1.</div>
+                        <div class="signature-item">Tú Ss.</div>
+                        <div class="signature-item">Nuev.</div>
+                        <div class="signature-item">Docu.</div>
+                        <div class="signature-item">Iju.ps.</div>
+                        <div class="signature-item">Dep.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="text-center mt-12 text-white opacity-75">
             <p><i class="fas fa-clock mr-2"></i>Duración: 2-3 minutos por jugador</p>
-            <p><i class="fas fa-dollar-sign mr-2"></i>Costo por experiencia: $1000 COP</p>
+            <p><i class="fas fa-dollar-sign mr-2"></i>Costo por experiencia: $500 COP</p>
             <p class="mt-4 text-sm">© Tu Sonido Interior - Juego Musical Terapéutico</p>
         </div>
     </div>
@@ -916,17 +960,60 @@
         }
 
         function displayProfile(profile) {
-            document.getElementById('profileName').innerHTML = 
-                `<i class="fas fa-star mr-2 text-yellow-500"></i>${profile["Nombre del perfil"]}`;
-            document.getElementById('selectedColor').textContent = profile.Color;
-            document.getElementById('selectedMelody').textContent = profile["Melodía"];
-            document.getElementById('selectedRhythm').textContent = profile.Ritmo;
-            document.getElementById('selectedEmotion').textContent = profile.Emoción;
+            document.getElementById('profileName').textContent = profile["Nombre del perfil"];
             document.getElementById('profileDescription').textContent = profile.Descripción;
             document.getElementById('suggestedInstrument').textContent = profile["Instrumento sugerido"];
             document.getElementById('recommendedActivity').textContent = profile["Actividad recomendada"];
             document.getElementById('soundscape').textContent = profile["Paisaje sonoro"];
             document.getElementById('motivationalPhrase').textContent = profile["Frase motivacional"];
+            
+            // Update the combination tags
+            const tagsContainer = document.querySelector('.profile-header div');
+            tagsContainer.innerHTML = '';
+            
+            const colorTag = document.createElement('span');
+            colorTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            colorTag.textContent = profile.Color;
+            tagsContainer.appendChild(colorTag);
+            
+            const melodyTag = document.createElement('span');
+            melodyTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            melodyTag.textContent = profile["Melodía"];
+            tagsContainer.appendChild(melodyTag);
+            
+            const rhythmTag = document.createElement('span');
+            rhythmTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            rhythmTag.textContent = profile.Ritmo;
+            tagsContainer.appendChild(rhythmTag);
+            
+            const emotionTag = document.createElement('span');
+            emotionTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            emotionTag.textContent = profile.Emoción;
+            tagsContainer.appendChild(emotionTag);
+            
+            // Set header color based on selected color
+            const header = document.querySelector('.profile-header');
+            switch(profile.Color.toLowerCase()) {
+                case 'negro':
+                    header.style.background = 'linear-gradient(135deg, #000000 0%, #333333 100%)';
+                    break;
+                case 'rojo':
+                    header.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                    break;
+                case 'azul':
+                    header.style.background = 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)';
+                    break;
+                case 'verde':
+                    header.style.background = 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)';
+                    break;
+                case 'blanco':
+                    header.style.background = 'linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%)';
+                    header.style.color = '#000';
+                    break;
+                case 'amarillo':
+                default:
+                    header.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
+            }
         }
 
         function displayDefaultProfile() {
@@ -939,62 +1026,159 @@
                 phrase: "Tu música interior es única e irrepetible"
             };
             
-            document.getElementById('profileName').innerHTML = 
-                `<i class="fas fa-star mr-2 text-yellow-500"></i>${defaultProfile.name}`;
-            document.getElementById('selectedColor').textContent = gameState.color;
-            document.getElementById('selectedMelody').textContent = gameState.melody;
-            document.getElementById('selectedRhythm').textContent = gameState.rhythm;
-            document.getElementById('selectedEmotion').textContent = gameState.emotion;
+            document.getElementById('profileName').textContent = defaultProfile.name;
             document.getElementById('profileDescription').textContent = defaultProfile.description;
             document.getElementById('suggestedInstrument').textContent = defaultProfile.instrument;
             document.getElementById('recommendedActivity').textContent = defaultProfile.activity;
             document.getElementById('soundscape').textContent = defaultProfile.soundscape;
             document.getElementById('motivationalPhrase').textContent = defaultProfile.phrase;
+            
+            // Update the combination tags
+            const tagsContainer = document.querySelector('.profile-header div');
+            tagsContainer.innerHTML = '';
+            
+            const colorTag = document.createElement('span');
+            colorTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            colorTag.textContent = gameState.color;
+            tagsContainer.appendChild(colorTag);
+            
+            const melodyTag = document.createElement('span');
+            melodyTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            melodyTag.textContent = gameState.melody;
+            tagsContainer.appendChild(melodyTag);
+            
+            const rhythmTag = document.createElement('span');
+            rhythmTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            rhythmTag.textContent = gameState.rhythm;
+            tagsContainer.appendChild(rhythmTag);
+            
+            const emotionTag = document.createElement('span');
+            emotionTag.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full';
+            emotionTag.textContent = gameState.emotion;
+            tagsContainer.appendChild(emotionTag);
+            
+            // Set header color based on selected color
+            const header = document.querySelector('.profile-header');
+            switch(gameState.color.toLowerCase()) {
+                case 'negro':
+                    header.style.background = 'linear-gradient(135deg, #000000 0%, #333333 100%)';
+                    break;
+                case 'rojo':
+                    header.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                    break;
+                case 'azul':
+                    header.style.background = 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)';
+                    break;
+                case 'verde':
+                    header.style.background = 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)';
+                    break;
+                case 'blanco':
+                    header.style.background = 'linear-gradient(135deg, #ffffff 0%, #e5e7eb 100%)';
+                    header.style.color = '#000';
+                    break;
+                case 'amarillo':
+                default:
+                    header.style.background = 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)';
+            }
         }
 
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Get profile data
-            const profileName = document.getElementById('profileName').textContent;
-            const description = document.getElementById('profileDescription').textContent;
-            const instrument = document.getElementById('suggestedInstrument').textContent;
-            const activity = document.getElementById('recommendedActivity').textContent;
-            const soundscape = document.getElementById('soundscape').textContent;
-            const phrase = document.getElementById('motivationalPhrase').textContent;
+            // Set colors based on selected color
+            let primaryColor, secondaryColor;
+            switch(gameState.color.toLowerCase()) {
+                case 'negro':
+                    primaryColor = '#000000';
+                    secondaryColor = '#333333';
+                    break;
+                case 'rojo':
+                    primaryColor = '#dc2626';
+                    secondaryColor = '#b91c1c';
+                    break;
+                case 'azul':
+                    primaryColor = '#1e40af';
+                    secondaryColor = '#1e3a8a';
+                    break;
+                case 'verde':
+                    primaryColor = '#16a34a';
+                    secondaryColor = '#15803d';
+                    break;
+                case 'blanco':
+                    primaryColor = '#ffffff';
+                    secondaryColor = '#e5e7eb';
+                    break;
+                case 'amarillo':
+                default:
+                    primaryColor = '#fbbf24';
+                    secondaryColor = '#f59e0b';
+            }
             
-            // Add content to PDF
+            // Add header with gradient
+            doc.setFillColor(primaryColor);
+            doc.rect(0, 0, 210, 30, 'F');
+            
+            // Add title
+            doc.setTextColor(255, 255, 255);
             doc.setFontSize(20);
-            doc.text('Tu Sonido Interior', 20, 30);
+            doc.text('Tu Sonido Interior', 105, 20, { align: 'center' });
             
+            // Add profile name
+            doc.setTextColor(255, 255, 255);
             doc.setFontSize(16);
-            doc.text(profileName.replace('⭐', ''), 20, 50);
+            doc.text(document.getElementById('profileName').textContent, 105, 40, { align: 'center' });
             
+            // Add combination tags
+            doc.setTextColor(255, 255, 255);
             doc.setFontSize(12);
-            doc.text('Tu Combinación:', 20, 70);
-            doc.text(`Color: ${gameState.color}`, 30, 80);
-            doc.text(`Melodía: ${gameState.melody}`, 30, 90);
-            doc.text(`Ritmo: ${gameState.rhythm}`, 30, 100);
-            doc.text(`Emoción: ${gameState.emotion}`, 30, 110);
+            doc.text(`${gameState.color} • ${gameState.melody} • ${gameState.rhythm} • ${gameState.emotion}`, 105, 50, { align: 'center' });
             
-            doc.text('Descripción:', 20, 130);
-            const descLines = doc.splitTextToSize(description, 170);
-            doc.text(descLines, 20, 140);
+            // Add content sections
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(14);
             
-            doc.text('Instrumento Sugerido:', 20, 180);
-            doc.text(instrument, 30, 190);
+            // Description
+            doc.text('Descripción de tu Perfil:', 20, 70);
+            doc.setFontSize(12);
+            const descLines = doc.splitTextToSize(document.getElementById('profileDescription').textContent, 170);
+            doc.text(descLines, 20, 80);
             
-            doc.text('Actividad Recomendada:', 20, 210);
-            const actLines = doc.splitTextToSize(activity, 170);
-            doc.text(actLines, 20, 220);
+            // Instrument
+            doc.setFontSize(14);
+            doc.text('Instrumento Sugerido:', 20, 110);
+            doc.setFontSize(12);
+            doc.text(document.getElementById('suggestedInstrument').textContent, 30, 120);
             
-            doc.text('Paisaje Sonoro:', 20, 250);
-            doc.text(soundscape, 30, 260);
+            // Activity
+            doc.setFontSize(14);
+            doc.text('Actividad Recomendada:', 20, 140);
+            doc.setFontSize(12);
+            const actLines = doc.splitTextToSize(document.getElementById('recommendedActivity').textContent, 170);
+            doc.text(actLines, 20, 150);
             
-            doc.text('Frase Motivacional:', 20, 280);
-            const phraseLines = doc.splitTextToSize(phrase, 170);
-            doc.text(phraseLines, 20, 290);
+            // Soundscape
+            doc.setFontSize(14);
+            doc.text('Paisaje Sonoro:', 20, 180);
+            doc.setFontSize(12);
+            doc.text(document.getElementById('soundscape').textContent, 30, 190);
+            
+            // Motivational phrase
+            doc.setFontSize(14);
+            doc.text('Tu Frase Motivacional:', 20, 210);
+            doc.setFontSize(12);
+            const phraseLines = doc.splitTextToSize(document.getElementById('motivationalPhrase').textContent, 170);
+            doc.text(phraseLines, 20, 220);
+            
+            // Add signatures
+            doc.setFontSize(10);
+            doc.text('Firmado por:', 20, 250);
+            const signatures = ['Doc.', 'Desc.', 'Dec.', 'Dec.', 'App1.', 'Tú Ss.', 'Nuev.', 'Docu.', 'Iju.ps.', 'Dep.'];
+            for (let i = 0; i < signatures.length; i++) {
+                const x = 20 + (i % 5) * 38;
+                const y = 260 + Math.floor(i / 5) * 10;
+                doc.text(signatures[i], x, y);
+            }
             
             // Save the PDF
             doc.save(`tu-sonido-interior-${gameState.color.toLowerCase()}.pdf`);
