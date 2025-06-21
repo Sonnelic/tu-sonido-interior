@@ -595,7 +595,7 @@
                 'Balada': 'https://dl.dropboxusercontent.com/scl/fi/qp1ybmcu8ppbtuwer8lgr/2ritmo1.mp3?rlkey=oyheem04xpitzji11rlm344w2',
                 'Despecho': 'https://dl.dropboxusercontent.com/scl/fi/splu4gxo8jhr9l3pyxbx1/2ritmo2.mp3?rlkey=gdvg4bflvj7pewj3gpstcz4jk',
                 'Merengue': 'https://dl.dropboxusercontent.com/scl/fi/s1x3m2ry8ihyy5q7rpu0h/2ritmo3.mp3?rlkey=5o3kv9nzmcn19k68h9nahcmlf',
-                'Reguetón': 'https://dl.dropboxusercontent.com/scl/fi/s1x3m2ry8ihyy5q7rpu0h/2ritmo3.mp3?rlkey=5o3kv9nzmcn19k68h9nahcmlf',
+                'Reguetón': 'https://dl.dropboxusercontent.com/scl/fi/d01lmkki2vhiz9lsbxgdn/2ritmo4.mp3?rlkey=ppn8le4yehtllt2wpo2xdu3n8',
                 'Salsa': 'https://dl.dropboxusercontent.com/scl/fi/06t5hmvo9tmh17kcp16xs/2ritmo5.mp3?rlkey=e4v3a4mxfje2zuryym2jvnnis'
             },
             emotion: {
@@ -669,36 +669,12 @@
 
         function selectMelody(melody) {
             gameState.melody = melody;
-            gameState.currentStep = 3;
-            
-            // Update UI
-            document.querySelectorAll('.melody-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector(`[data-melody="${melody}"]`).classList.add('selected');
-            
-            setTimeout(() => {
-                document.getElementById('rhythmsSection').classList.remove('hidden');
-                document.getElementById('rhythmsSection').scrollIntoView({ behavior: 'smooth' });
-                updateProgressIndicator();
-            }, 500);
+gameState.currentStep = 3;
         }
 
         function selectRhythm(rhythm) {
             gameState.rhythm = rhythm;
-            gameState.currentStep = 4;
-            
-            // Update UI
-            document.querySelectorAll('.rhythm-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            document.querySelector(`[data-rhythm="${rhythm}"]`).classList.add('selected');
-            
-            setTimeout(() => {
-                document.getElementById('emotionsSection').classList.remove('hidden');
-                document.getElementById('emotionsSection').scrollIntoView({ behavior: 'smooth' });
-                updateProgressIndicator();
-            }, 500);
+gameState.currentStep = 4;
         }
 
         function selectEmotion(emotion) {
