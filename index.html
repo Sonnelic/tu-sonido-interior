@@ -254,7 +254,7 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">
                     <i class="fas fa-music mr-2"></i>Paso 2: ¿Cuál melodía sientes más tuya?
                 </h2>
-                <p class="text-gray-600 mb-6">Escucha cada melodía durante 15 segundos hasta terminar y elige la que más resuene contigo</p>
+                <p class="text-gray-600 mb-6">Escucha cada melodía y elige la que más resuene contigo</p>
                 
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="option-card melody-option" data-melody="Weightless">
@@ -263,7 +263,7 @@
                                 <h3 class="font-semibold text-lg">Weightless</h3>
                                 <p class="text-gray-600 text-sm">Melodía relajante y envolvente</p>
                             </div>
-                            <button class="play-button" onclick="playSound('melody', 'Weightless', event)">
+                            <button class="play-button" onclick="playSound('melody', 'Weightless')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -275,7 +275,7 @@
                                 <h3 class="font-semibold text-lg">Sonidos del Bosque</h3>
                                 <p class="text-gray-600 text-sm">Conexión con la naturaleza</p>
                             </div>
-                            <button class="play-button" onclick="playSound('melody', 'Sonidos del bosque', event)">
+                            <button class="play-button" onclick="playSound('melody', 'Sonidos del bosque')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -287,7 +287,7 @@
                                 <h3 class="font-semibold text-lg">Synfony</h3>
                                 <p class="text-gray-600 text-sm">Armonía clásica moderna</p>
                             </div>
-                            <button class="play-button" onclick="playSound('melody', 'Synfony', event)">
+                            <button class="play-button" onclick="playSound('melody', 'Synfony')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -311,7 +311,7 @@
                                 <h3 class="font-semibold text-lg">Balada</h3>
                                 <p class="text-gray-600 text-sm">Suave y emotivo</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Balada', event)">
+                            <button class="play-button" onclick="playSound('rhythm', 'Balada')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -323,7 +323,7 @@
                                 <h3 class="font-semibold text-lg">Despecho</h3>
                                 <p class="text-gray-600 text-sm">Intenso y apasionado</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Despecho', event)">
+                            <button class="play-button" onclick="playSound('rhythm', 'Despecho')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -335,7 +335,7 @@
                                 <h3 class="font-semibold text-lg">Merengue</h3>
                                 <p class="text-gray-600 text-sm">Alegre y bailable</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Merengue', event)">
+                            <button class="play-button" onclick="playSound('rhythm', 'Merengue')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -347,7 +347,7 @@
                                 <h3 class="font-semibold text-lg">Reguetón</h3>
                                 <p class="text-gray-600 text-sm">Urbano y enérgico</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Reguetón', event)">
+                            <button class="play-button" onclick="playSound('rhythm', 'Reguetón')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -359,7 +359,7 @@
                                 <h3 class="font-semibold text-lg">Salsa</h3>
                                 <p class="text-gray-600 text-sm">Tropical y vibrante</p>
                             </div>
-                            <button class="play-button" onclick="playSound('rhythm', 'Salsa', event)">
+                            <button class="play-button" onclick="playSound('rhythm', 'Salsa')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -383,7 +383,7 @@
                                 <h3 class="font-semibold text-lg">Suspenso</h3>
                                 <p class="text-gray-600 text-sm">Misterio y expectativa</p>
                             </div>
-                            <button class="play-button" onclick="playSound('emotion', 'Suspenso', event)">
+                            <button class="play-button" onclick="playSound('emotion', 'Suspenso')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -395,7 +395,7 @@
                                 <h3 class="font-semibold text-lg">Tristeza</h3>
                                 <p class="text-gray-600 text-sm">Profundidad y reflexión</p>
                             </div>
-                            <button class="play-button" onclick="playSound('emotion', 'Tristeza', event)">
+                            <button class="play-button" onclick="playSound('emotion', 'Tristeza')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -407,7 +407,7 @@
                                 <h3 class="font-semibold text-lg">Alegría</h3>
                                 <p class="text-gray-600 text-sm">Luz y positividad</p>
                             </div>
-                            <button class="play-button" onclick="playSound('emotion', 'Alegría', event)">
+                            <button class="play-button" onclick="playSound('emotion', 'Alegría')">
                                 <i class="fas fa-play"></i>
                             </button>
                         </div>
@@ -699,41 +699,33 @@
 
         
 let currentAudio = null;
-let currentButton = null;
 
-function playSound(type, option, event, event) {
+function playSound(type, option) {
   const url = soundUrls[type][option];
   if (!url) {
     console.warn('No se encontró la URL del sonido:', type, option);
     return;
   }
 
-  // Si ya hay audio sonando y es el mismo botón, detenemos
-  if (currentAudio && !currentAudio.paused && currentButton === event.target) {
+  // Si ya hay audio sonando, lo pausamos
+  if (currentAudio && !currentAudio.paused) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
-    currentButton.classList.remove('pulse');
     currentAudio = null;
-    currentButton = null;
     return;
   }
 
-  // Detener audio anterior si existe
-  if (currentAudio) {
-    currentAudio.pause();
-    currentAudio.currentTime = 0;
-    if (currentButton) currentButton.classList.remove('pulse');
-  }
-
+  // Cargar nuevo audio
   currentAudio = new Audio(url);
   currentAudio.volume = 0.8;
   currentAudio.play().catch(err => {
     console.error('Error al reproducir el audio:', err);
   });
 
-  currentButton = event.target.closest('.play-button');
-  if (currentButton) {
-    currentButton.classList.add('pulse');
+  const button = event.target.closest('.play-button');
+  if (button) {
+    button.classList.add('pulse');
+    setTimeout(() => button.classList.remove('pulse'), 1000);
   }
 }
 
@@ -923,4 +915,3 @@ ${document.getElementById('motivationalPhrase').textContent}
         <script id="html_badge_script2" src="https://www.genspark.ai/html_badge.js"></script>
         
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-      
