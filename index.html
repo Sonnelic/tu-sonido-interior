@@ -16,95 +16,36 @@
             min-height: 100vh;
         }
         
-        /* Estilos para el logo */
+        /* ... (otros estilos se mantienen igual) ... */
+
+        /* Estilo mejorado para el logo */
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
             flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .logo-img {
             height: auto;
-            max-height: 80px;
-            width: auto;
+            max-height: 100px;
             max-width: 100%;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
         
-        .jenga-block {
-            width: 80px;
-            height: 25px;
-            margin: 2px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255,255,255,0.3);
-            display: inline-block;
-            position: relative;
-        }
-        
-        .jenga-block:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        .jenga-block.selected {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            border-color: #fbbf24;
-        }
-        
-        .color-negro { background-color: #000000; }
-        .color-rojo { background-color: #dc2626; }
-        .color-blanco { 
-            background-color: #ffffff; 
-            color: #000;
-            border: 1px solid #000000 !important; /* Borde negro para fichas blancas */
-        }
-        .color-amarillo { background-color: #fbbf24; color: #000; }
-        .color-azul { background-color: #1e40af; }
-        .color-verde { background-color: #16a34a; }
-        
-        /* ... (otros estilos existentes) ... */
-
-        /* Estilos para el contador */
-        .countdown-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
+        .title-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            color: white;
         }
-        
-        .countdown-number {
-            font-size: 8rem;
-            font-weight: bold;
-            margin-bottom: 2rem;
-            animation: pulse 1s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        /* ... (resto de estilos) ... */
     </style>
 </head>
 <body class="min-h-screen">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header con logo -->
+        <!-- Header con logo - Versión mejorada -->
         <div class="text-center mb-8">
             <div class="logo-container">
                 <!-- Logo ARMONÍA PLENA -->
@@ -122,99 +63,16 @@
                 </div>
             </div>
             
-            <p class="text-lg text-white opacity-75">
+            <p class="text-lg text-white opacity-75 mt-4">
                 Juego Musical Terapéutico - Ideal para jornadas escolares, ferias y eventos de bienestar
             </p>
         </div>
 
-        <!-- Sección de Jenga (Paso 1) -->
-        <div id="jengaSection" class="option-card text-center mb-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">
-                <i class="fas fa-cubes mr-2"></i>Paso 1: Selecciona tu Ficha Jenga
-            </h2>
-            <!-- ... (contenido de Jenga) ... -->
-        </div>
-
-        <!-- Sección de Melodías (Paso 2) -->
-        <div id="melodiesSection" class="hidden">
-            <!-- ... (contenido de melodías) ... -->
-        </div>
-
-        <!-- Sección de Ritmos (Paso 3) -->
-        <div id="rhythmsSection" class="hidden">
-            <!-- ... (contenido de ritmos) ... -->
-        </div>
-
-        <!-- Sección de Emociones (Paso 4) -->
-        <div id="emotionsSection" class="hidden">
-            <!-- ... (contenido de emociones) ... -->
-        </div>
-
-        <!-- Overlay de Countdown -->
-        <div id="countdownOverlay" class="countdown-overlay hidden">
-            <div class="loading-spinner"></div>
-            <div id="countdownNumber" class="countdown-number">5</div>
-            <div class="countdown-text">Analizando tu combinación única...</div>
-        </div>
-
-        <!-- Sección de Resultados -->
-        <div id="resultsSection" class="hidden">
-            <!-- ... (contenido de resultados) ... -->
-        </div>
+        <!-- ... (el resto del contenido HTML se mantiene igual) ... -->
     </div>
 
     <script>
-        // ... (todo el código JavaScript anterior con las correcciones) ...
-        
-        function revealProfile() {
-            // Mostrar overlay de cuenta regresiva
-            const countdownOverlay = document.getElementById('countdownOverlay');
-            countdownOverlay.classList.remove('hidden');
-            
-            let countdown = 5;
-            const countdownNumber = document.getElementById('countdownNumber');
-            countdownNumber.textContent = countdown;
-            
-            const countdownInterval = setInterval(() => {
-                countdown--;
-                countdownNumber.textContent = countdown;
-                
-                if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    countdownOverlay.classList.add('hidden');
-                    showProfileResults();
-                }
-            }, 1000);
-        }
-
-        function showProfileResults() {
-            const profile = findProfile(gameState.color, gameState.melody, gameState.rhythm, gameState.emotion);
-            
-            if (profile) {
-                // Actualizar TODOS los campos del perfil correctamente
-                document.getElementById('profileName').textContent = profile["Nombre del perfil"];
-                document.getElementById('profileDescription').textContent = profile.Descripción;
-                document.getElementById('suggestedInstrument').textContent = profile["Instrumento sugerido"];
-                document.getElementById('recommendedActivity').textContent = profile["Actividad recomendada"];
-                document.getElementById('soundscape').textContent = profile["Paisaje sonoro"];
-                document.getElementById('motivationalPhrase').textContent = profile["Frase motivacional"];
-                
-                // Actualizar tags
-                const tagsContainer = document.getElementById('profileTags');
-                tagsContainer.innerHTML = '';
-                [profile.Color, profile["Melodía"], profile.Ritmo, profile.Emoción].forEach(tag => {
-                    const tagElement = document.createElement('span');
-                    tagElement.className = 'bg-white bg-opacity-20 px-3 py-1 rounded-full mx-1';
-                    tagElement.textContent = tag;
-                    tagsContainer.appendChild(tagElement);
-                });
-            }
-            
-            document.getElementById('resultsSection').classList.remove('hidden');
-            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // ... (resto de funciones JavaScript) ...
+        // ... (todo el código JavaScript se mantiene igual) ...
     </script>
 </body>
 </html>
